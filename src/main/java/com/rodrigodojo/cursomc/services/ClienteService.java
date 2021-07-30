@@ -19,6 +19,7 @@ import com.rodrigodojo.cursomc.domain.enums.TipoCliente;
 import com.rodrigodojo.cursomc.dto.ClienteDTO;
 import com.rodrigodojo.cursomc.dto.ClienteNewDTO;
 import com.rodrigodojo.cursomc.repositories.ClienteRepository;
+import com.rodrigodojo.cursomc.repositories.EnderecoRepository;
 import com.rodrigodojo.cursomc.services.exceptions.DataIntegrityException;
 import com.rodrigodojo.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -27,6 +28,9 @@ public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository repo;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
@@ -41,7 +45,9 @@ public class ClienteService {
 	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
-		return repo.save(obj);
+		obj = repo.save(obj);
+		enderecoRepository.saveAll(obj.getEnderecos());
+		return obj;
 	}
 	
 
