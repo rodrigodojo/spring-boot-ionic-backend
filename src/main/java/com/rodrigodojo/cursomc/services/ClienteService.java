@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.rodrigodojo.cursomc.domain.Categoria;
 import com.rodrigodojo.cursomc.domain.Cliente;
 import com.rodrigodojo.cursomc.dto.ClienteDTO;
 import com.rodrigodojo.cursomc.repositories.ClienteRepository;
@@ -31,6 +32,12 @@ public class ClienteService {
 	public List<Cliente> findAll() {
 		return repo.findAll();
 	}
+	
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
 
 	public Cliente update(Cliente obj) {
 		find(obj.getId());
@@ -56,7 +63,7 @@ public class ClienteService {
 	}
 	
 	public Cliente fromDTO(ClienteDTO objDto) {
-		throw new UnsupportedOperationException();
+		return new Cliente(objDto.getId(),objDto.getNome(),objDto.getEmail(),null,null);
 	}
 	
 }
