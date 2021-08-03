@@ -2,6 +2,8 @@ package com.rodrigodojo.cursomc.dto;
 
 import java.io.Serializable;
 
+import com.rodrigodojo.cursomc.domain.Produto;
+
 public class ProdutoDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -12,6 +14,12 @@ public class ProdutoDTO implements Serializable{
 	private Double preco;
 	
 	public ProdutoDTO() {}
+	
+	public ProdutoDTO(Produto obj) {
+		id = obj.getId();
+		nome = obj.getNome();
+		preco = obj.getPreco();
+	}
 	
 	public ProdutoDTO(Integer id, String nome, Double preco) {
 		this.id = id;
